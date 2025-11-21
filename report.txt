@@ -1,0 +1,308 @@
+================================================================================
+RUBIK'S CUBE PUZZLE SOLVER - COMPREHENSIVE REPORT
+================================================================================
+
+PROBLEM SETUP
+--------------------------------------------------------------------------------
+Cube Dimensions: 2 x 2 x 2
+Scramble Moves Applied: 2
+Scramble Sequence: (x,0) -> (y,1)
+Initial State (serialized): ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG...
+
+ALGORITHM PERFORMANCE SUMMARY
+--------------------------------------------------------------------------------
+Algorithm            Success    Expanded     Path Len     Time (s)    
+--------------------------------------------------------------------------------
+BFS                  Yes        116          4            0.1141      
+DFS                  Yes        200          6            0.0434      
+UCS                  Yes        116          4            0.1613      
+DLS                  Yes        492          4            0.2983      
+IDS                  Yes        619          4            0.4267      
+GBFS                 No         10000        N/A          10.3842     
+A*                   Yes        30           4            0.0145      
+Weighted A*          Yes        29           4            0.0133      
+IDA*                 Yes        25           4            0.0471      
+RBFS                 Yes        20           4            0.0139      
+
+
+DETAILED ALGORITHM RESULTS
+================================================================================
+
+
+BFS
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.1141 seconds
+Expanded Nodes: 116
+Visited States: 618
+Solution Path Length: 4
+Solution Path: (y,0) -> (y,0) -> (y,1) -> (x,0)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. GBROWY|GBROWY|YWGBOR|YWGBOR|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  3. ORGBWY|ORGBWY|WYROBG|WYROBG|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  4. WYROBG|WYROBG|WYROBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  5. ORGBWY|ORGBWY|ORBGYW|ORBGYW|WYGBRO|WYGBRO|WYBGOR|WYBGOR
+  6. YWORBG|ORGBWY|BGWYRO|WYROBG|ORWYBG|WYGBRO|BGORWY|ORWYBG
+  7. ORGBWY|YWORBG|WYROBG|BGWYRO|WYGBRO|ORWYBG|ORWYBG|BGORWY
+  8. ROGBYW|ROGBYW|YWROGB|YWROGB|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  9. GBROWY|GBROWY|YWGBOR|YWGBOR|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  10. WYROBG|WYROBG|YWGBOR|YWGBOR|GBWYOR|GBWYOR|ORWYBG|ORWYBG
+  ... and 106 more
+
+
+DFS
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.0434 seconds
+Expanded Nodes: 200
+Visited States: 222
+Solution Path Length: 6
+Solution Path: (x,0) -> (x,0) -> (x,1) -> (x,1) -> (y,1) -> (x,1)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. GBROWY|GBROWY|YWGBOR|YWGBOR|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  3. ROGBYW|ROGBYW|YWROGB|YWROGB|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  4. BGROYW|BGROYW|WYGBRO|WYGBRO|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  5. BGROYW|BGROYW|WYGBRO|WYGBRO|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  6. BGROYW|BGROYW|WYGBRO|WYGBRO|YWGBOR|YWGBOR|ROWYGB|ROWYGB
+  7. ORGBWY|ORGBWY|WYROBG|WYROBG|YWGBOR|YWGBOR|ROWYGB|ROWYGB
+  8. BGROYW|BGROYW|WYGBRO|WYGBRO|BGWYRO|BGWYRO|ROGBYW|ROGBYW
+  9. YWORBG|YWORBG|WYGBRO|WYGBRO|BGYWOR|BGYWOR|ROWYGB|ROWYGB
+  10. BGROYW|BGROYW|ROGBYW|ROGBYW|YWGBOR|YWGBOR|WYROBG|WYROBG
+  ... and 190 more
+
+
+UCS
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.1613 seconds
+Expanded Nodes: 116
+Visited States: 618
+Solution Path Length: 4
+Solution Path: (y,0) -> (y,0) -> (y,1) -> (x,0)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. GBROWY|GBROWY|YWGBOR|YWGBOR|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  3. ORGBWY|ORGBWY|WYROBG|WYROBG|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  4. WYROBG|WYROBG|WYROBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  5. ORGBWY|ORGBWY|ORBGYW|ORBGYW|WYGBRO|WYGBRO|WYBGOR|WYBGOR
+  6. YWORBG|ORGBWY|BGWYRO|WYROBG|ORWYBG|WYGBRO|BGORWY|ORWYBG
+  7. ORGBWY|YWORBG|WYROBG|BGWYRO|WYGBRO|ORWYBG|ORWYBG|BGORWY
+  8. ROGBYW|ROGBYW|YWROGB|YWROGB|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  9. GBROWY|GBROWY|YWGBOR|YWGBOR|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  10. WYROBG|WYROBG|YWGBOR|YWGBOR|GBWYOR|GBWYOR|ORWYBG|ORWYBG
+  ... and 106 more
+
+
+DLS
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.2983 seconds
+Expanded Nodes: 492
+Visited States: 2609
+Solution Path Length: 4
+Solution Path: (y,0) -> (y,0) -> (y,1) -> (x,0)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. GBROWY|GBROWY|YWGBOR|YWGBOR|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  3. ROGBYW|ROGBYW|YWROGB|YWROGB|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  4. BGROYW|BGROYW|WYGBRO|WYGBRO|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  5. BGROYW|BGROYW|WYGBRO|WYGBRO|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  6. WYROBG|WYROBG|WYGBRO|WYGBRO|BGYWOR|BGYWOR|ORWYBG|ORWYBG
+  7. BGROYW|BGROYW|ORBGYW|ORBGYW|WYGBRO|WYGBRO|WYROBG|WYROBG
+  8. YWORBG|BGROYW|BGWYRO|WYGBRO|BGWYRO|WYGBRO|ORBGYW|ORWYBG
+  9. BGROYW|YWORBG|WYGBRO|BGWYRO|WYGBRO|BGWYRO|ORWYBG|ORBGYW
+  10. ROGBYW|ROGBYW|YWROGB|YWROGB|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  ... and 482 more
+
+
+IDS
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.4267 seconds
+Expanded Nodes: 619
+Visited States: 3296
+Solution Path Length: 4
+Solution Path: (y,0) -> (y,0) -> (y,1) -> (x,0)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. GBROWY|GBROWY|YWGBOR|YWGBOR|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  3. ORGBWY|ORGBWY|WYROBG|WYROBG|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  4. WYROBG|WYROBG|WYROBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  5. ORGBWY|ORGBWY|ORBGYW|ORBGYW|WYGBRO|WYGBRO|WYBGOR|WYBGOR
+  6. YWORBG|ORGBWY|BGWYRO|WYROBG|ORWYBG|WYGBRO|BGORWY|ORWYBG
+  7. ORGBWY|YWORBG|WYROBG|BGWYRO|WYGBRO|ORWYBG|ORWYBG|BGORWY
+  8. ROGBYW|ROGBYW|YWROGB|YWROGB|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  9. GBROWY|GBROWY|YWGBOR|YWGBOR|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  10. WYROBG|WYROBG|YWGBOR|YWGBOR|GBWYOR|GBWYOR|ORWYBG|ORWYBG
+  ... and 609 more
+
+
+GBFS
+--------------------------------------------------------------------------------
+Success: False
+Execution Time: 10.3842 seconds
+Expanded Nodes: 10000
+Visited States: 46419
+No solution found within search limits.
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. WYROBG|WYROBG|WYROBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  3. YWORBG|WYROBG|YWORBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  4. YWORBG|YWORBG|YWORBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  5. WYROBG|YWORBG|WYROBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  6. YWORBG|YWORBG|YWORBG|YWORBG|ROYWBG|ORWYBG|ROYWBG|ORWYBG
+  7. YWORBG|YWORBG|YWORBG|YWORBG|ROYWBG|ROYWBG|ROYWBG|ROYWBG
+  8. YWORBG|YWORBG|YWORBG|YWORBG|ORWYBG|ROYWBG|ORWYBG|ROYWBG
+  9. WYROBG|YWORBG|WYROBG|YWORBG|ROYWBG|ROYWBG|ROYWBG|ROYWBG
+  10. WYROBG|WYROBG|WYROBG|WYROBG|ROYWBG|ROYWBG|ROYWBG|ROYWBG
+  ... and 9990 more
+
+
+A*
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.0145 seconds
+Expanded Nodes: 30
+Visited States: 158
+Solution Path Length: 4
+Solution Path: (y,0) -> (y,0) -> (y,1) -> (x,0)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. WYROBG|WYROBG|WYROBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  3. YWORBG|WYROBG|YWORBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  4. WYROBG|YWORBG|WYROBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  5. ORGBWY|ORGBWY|WYROBG|WYROBG|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  6. GBROWY|GBROWY|GBROWY|GBROWY|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  7. WYROBG|WYROBG|WYROBG|WYROBG|GBWYOR|GBWYOR|GBWYOR|GBWYOR
+  8. YWORBG|YWORBG|YWORBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  9. GBROWY|GBROWY|GBROWY|GBROWY|GBWYOR|GBWYOR|GBWYOR|GBWYOR
+  10. YWORBG|ORGBWY|BGWYRO|WYROBG|ORWYBG|WYGBRO|BGORWY|ORWYBG
+  ... and 20 more
+
+
+Weighted A*
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.0133 seconds
+Expanded Nodes: 29
+Visited States: 153
+Solution Path Length: 4
+Solution Path: (y,0) -> (y,0) -> (y,1) -> (x,0)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. WYROBG|WYROBG|WYROBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  3. YWORBG|WYROBG|YWORBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  4. WYROBG|YWORBG|WYROBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  5. YWORBG|YWORBG|YWORBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  6. GBROWY|GBROWY|GBROWY|GBROWY|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  7. GBROWY|GBROWY|GBROWY|GBROWY|GBWYOR|GBWYOR|GBWYOR|GBWYOR
+  8. WYROBG|WYROBG|WYROBG|WYROBG|GBWYOR|GBWYOR|GBWYOR|GBWYOR
+  9. ORGBWY|ORGBWY|WYROBG|WYROBG|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  10. YWORBG|YWORBG|YWORBG|YWORBG|ROYWBG|ORWYBG|ROYWBG|ORWYBG
+  ... and 19 more
+
+
+IDA*
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.0471 seconds
+Expanded Nodes: 25
+Visited States: 134
+Solution Path Length: 4
+Solution Path: (y,0) -> (y,0) -> (y,1) -> (x,0)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. WYROBG|WYROBG|WYROBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  3. YWORBG|WYROBG|YWORBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  4. WYROBG|YWORBG|WYROBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  5. ORGBWY|ORGBWY|WYROBG|WYROBG|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  6. GBROWY|GBROWY|GBROWY|GBROWY|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  7. GBROWY|GBROWY|GBROWY|GBROWY|GBWYOR|GBWYOR|GBWYOR|GBWYOR
+  8. WYROBG|WYROBG|WYROBG|WYROBG|GBWYOR|GBWYOR|GBWYOR|GBWYOR
+  9. YWORBG|YWORBG|YWORBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  10. YWORBG|ORGBWY|BGWYRO|WYROBG|ORWYBG|WYGBRO|BGORWY|ORWYBG
+  ... and 15 more
+
+
+RBFS
+--------------------------------------------------------------------------------
+Success: True
+Execution Time: 0.0139 seconds
+Expanded Nodes: 20
+Visited States: 114
+Solution Path Length: 4
+Solution Path: (y,1) -> (y,0) -> (y,0) -> (x,0)
+
+Expanded Nodes (first 10):
+  1. ORGBWY|ORGBWY|WYROBG|WYROBG|WYGBRO|WYGBRO|ORWYBG|ORWYBG
+  2. WYROBG|WYROBG|WYROBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  3. YWORBG|WYROBG|YWORBG|WYROBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  4. WYROBG|YWORBG|WYROBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  5. YWORBG|YWORBG|YWORBG|YWORBG|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  6. GBROWY|GBROWY|GBROWY|GBROWY|ORWYBG|ORWYBG|ORWYBG|ORWYBG
+  7. GBROWY|GBROWY|GBROWY|GBROWY|GBWYOR|GBWYOR|GBWYOR|GBWYOR
+  8. WYROBG|WYROBG|WYROBG|WYROBG|GBWYOR|GBWYOR|GBWYOR|GBWYOR
+  9. ORGBWY|ORGBWY|WYROBG|WYROBG|GBWYOR|GBWYOR|ORGBWY|ORGBWY
+  10. YWORBG|ORGBWY|BGWYRO|WYROBG|ORWYBG|WYGBRO|BGORWY|ORWYBG
+  ... and 10 more
+
+
+================================================================================
+HEURISTIC ANALYSIS
+================================================================================
+
+Heuristic Function: Face Mismatch Heuristic
+--------------------------------------------------------------------------------
+Description: Counts the number of face colors that don't match the
+target uniform color for each of the 6 external faces, divided by
+an optimistic factor (max affected cubies per move).
+
+Admissibility: This heuristic is admissible because:
+  1. Each move can affect at most 2 * max(dimensions) cubies
+  2. We divide the total mismatches by this maximum
+  3. This ensures we never overestimate the cost to goal
+
+Consistency: For any state n and successor n':
+  h(n) <= cost(n,n') + h(n')
+  Since cost(n,n') = 1 for all moves, and each move can reduce
+  mismatches by at most a bounded amount, the heuristic is consistent.
+
+
+================================================================================
+ALGORITHM COMPARISON
+================================================================================
+
+Blind Search Algorithms:
+--------------------------------------------------------------------------------
+BFS: Complete and optimal, but explores many states
+DFS: Incomplete (with depth limit), may find suboptimal solutions
+UCS: Complete and optimal, equivalent to BFS with unit costs
+DLS: Complete up to depth limit, not optimal
+IDS: Complete and optimal, combines benefits of BFS and DFS
+
+Informed Search Algorithms:
+--------------------------------------------------------------------------------
+GBFS: Not complete or optimal, but can be fast with good heuristic
+A*: Complete and optimal with admissible heuristic
+Weighted A*: Trades optimality for speed (W > 1)
+IDA*: Complete and optimal, memory efficient
+RBFS: Complete and optimal, memory efficient with bounded space
+
+
+Conclusion:
+--------------------------------------------------------------------------------
+For this puzzle, informed search algorithms (A*, IDA*, RBFS) typically
+outperform blind search by using the heuristic to guide exploration.
+A* is usually fastest but uses more memory, while IDA* and RBFS trade
+time for space efficiency.
